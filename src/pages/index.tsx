@@ -1,29 +1,5 @@
-import Home, { HomeProps } from '../templates/Home';
-import { loadPages } from '../api/load-pages';
-import { GetStaticProps } from 'next';
+import { Home } from '../templates/Home';
 
-export default function Index({ data = null }: HomeProps) {
-  return <Home data={data} />;
+export default function Index() {
+  return <Home />;
 }
-
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  let data;
-
-  try {
-    data = await loadPages('landing-page');
-  } catch (e) {
-    console.log(e);
-  }
-
-  if (!data || !data.length) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      data,
-    },
-  };
-};
